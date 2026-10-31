@@ -19,6 +19,7 @@
     .page{position:relative;min-height:100vh;display:flex;align-items:center;flex-direction:column;gap:28px;padding:28px 16px 40px}
     .invitation{position:relative;width:min(100%,620px);min-height:900px;padding:48px 34px 0;text-align:center;overflow:hidden;background:linear-gradient(180deg,rgba(255,253,247,.82),rgba(248,244,233,.72));border:1px solid rgba(177,138,74,.58);box-shadow:0 24px 70px rgba(42,55,40,.13),inset 0 0 0 7px rgba(255,255,255,.32)}
     .invitation:before,.invitation:after{content:"";position:absolute;inset:11px;border:1px solid rgba(177,138,74,.34);pointer-events:none}
+    .invitation:before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='128' viewBox='0 0 64 128'%3E%3Cg fill='none' stroke='%23b18a4a' stroke-width='1' opacity='.5'%3E%3Cpath d='M32 0c0 13-18 15-18 28s18 15 18 28 18 15 18 28-18 15-18 28-18 15-18 28M32 0c0 13 18 15 18 28S32 43 32 56 14 71 14 84s18 15 18 28 18 15 18 28'/%3E%3Cpath d='M32 15c8 5 8 18 0 23-8-5-8-18 0-23Zm0 42c8 5 8 18 0 23-8-5-8-18 0-23Zm0 42c8 5 8 18 0 23-8-5-8-18 0-23Z'/%3E%3Ccircle cx='32' cy='28' r='3'/%3E%3Ccircle cx='32' cy='70' r='3'/%3E%3Ccircle cx='32' cy='112' r='3'/%3E%3C/g%3E%3C/svg%3E") left 17px center/48px 112px repeat-y,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='128' viewBox='0 0 64 128'%3E%3Cg fill='none' stroke='%23b18a4a' stroke-width='1' opacity='.5'%3E%3Cpath d='M32 0c0 13-18 15-18 28s18 15 18 28 18 15 18 28-18 15-18 28-18 15-18 28M32 0c0 13 18 15 18 28S32 43 32 56 14 71 14 84s18 15 18 28 18 15 18 28'/%3E%3Cpath d='M32 15c8 5 8 18 0 23-8-5-8-18 0-23Zm0 42c8 5 8 18 0 23-8-5-8-18 0-23Zm0 42c8 5 8 18 0 23-8-5-8-18 0-23Z'/%3E%3Ccircle cx='32' cy='28' r='3'/%3E%3Ccircle cx='32' cy='70' r='3'/%3E%3Ccircle cx='32' cy='112' r='3'/%3E%3C/g%3E%3C/svg%3E") right 17px center/48px 112px repeat-y}
     .invitation:after{inset:17px;border-color:rgba(177,138,74,.16)}
     .corner{position:absolute;width:112px;height:112px;color:var(--gold);opacity:.85;z-index:1}.corner svg{width:100%;height:100%}.corner.tl{top:12px;left:12px}.corner.tr{top:12px;right:12px;transform:scaleX(-1)}.corner.bl{bottom:12px;left:12px;transform:scaleY(-1)}.corner.br{bottom:12px;right:12px;transform:scale(-1)}
     .content{position:relative;z-index:2;display:flex;align-items:center;flex-direction:column}
@@ -165,7 +166,7 @@
       <p>Тойға келетініңіз туралы хабарлама таңдаңыз.</p>
       <div class="choices"><button class="choice" type="button" aria-pressed="false" data-answer="Қуана келемін!">Қуана келемін!</button><button class="choice" type="button" aria-pressed="false" data-answer="Өкінішке орай, келе алмаймын.">Өкінішке орай, келе алмаймын</button></div>
       <p class="status" id="rsvpStatus" aria-live="polite"></p>
-      <div class="dialog-actions"><button class="button secondary" value="cancel">Жабу</button><button class="button primary" id="rsvpCopy" type="button" disabled>ЖАУАПТЫ КӨШІРУ</button></div>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">Жабу</button><button class="button primary" id="rsvpCopy" type="button" disabled>WHATSAPP-ТЫ АШУ</button></div>
     </form>
   </dialog>
   <audio id="weddingSong" src="konil-tolkyny.mp3" preload="auto" autoplay loop></audio>
@@ -178,8 +179,9 @@
     weddingSong.play().then(syncMusicButton).catch(()=>{syncMusicButton();musicHint.hidden=false});
     const dialog=document.getElementById('rsvpDialog'),openButton=document.getElementById('rsvpOpen'),copyButton=document.getElementById('rsvpCopy'),status=document.getElementById('rsvpStatus');let answer='';
     openButton.addEventListener('click',()=>dialog.showModal());
-    document.querySelectorAll('.choice').forEach(choice=>choice.addEventListener('click',()=>{answer=choice.dataset.answer;document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed',String(item===choice)));copyButton.disabled=false;status.textContent='Жауабыңыз таңдалды. Оны көшіріп, той иелеріне жібере аласыз.'}));
-    copyButton.addEventListener('click',async()=>{const message=`Дамир мен Айымның тойына: ${answer}`;try{await navigator.clipboard.writeText(message);status.textContent='Жауап көшірілді. Оны Жеңіс пен Алмаға жібере аласыз.'}catch{status.textContent=message}});
+    document.querySelectorAll('.choice').forEach(choice=>choice.addEventListener('click',()=>{answer=choice.dataset.answer;document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed',String(item===choice)));copyButton.disabled=false;status.textContent='WhatsApp ашылып, жауабыңыз дайындалады.';openWhatsAppReply()}));
+    function openWhatsAppReply(){if(!answer)return;const message=`Сәлеметсіздер ме! Дамир мен Айымның 29 қараша 2026 жылғы тойына: ${answer}`;const whatsappUrl=`https://wa.me/?text=${encodeURIComponent(message)}`;window.open(whatsappUrl,'_blank','noopener,noreferrer')}
+    copyButton.addEventListener('click',openWhatsAppReply);
     dialog.addEventListener('close',()=>{answer='';copyButton.disabled=true;status.textContent='';document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed','false'))});
     const scrollSections=document.querySelectorAll('.scroll-reveal');
     if('IntersectionObserver' in window){const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.15});scrollSections.forEach(section=>revealObserver.observe(section))}else{scrollSections.forEach(section=>section.classList.add('is-visible'))}
