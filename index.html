@@ -231,7 +231,7 @@
   <script>
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
-    const musicStartAt=33;
+    const musicStartAt=48;
     function seekToMusicStart(){if(weddingSong.currentTime<musicStartAt&&Number.isFinite(weddingSong.duration)&&weddingSong.duration>musicStartAt)weddingSong.currentTime=musicStartAt}
     weddingSong.addEventListener('loadedmetadata',seekToMusicStart,{once:true});
     seekToMusicStart();
