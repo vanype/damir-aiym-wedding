@@ -10,7 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
-    window.envelopeTargetHash = location.hash;
+    // Always start the invitation at the top. Mobile browsers can restore a
+    // stale anchor from a previous visit even when scroll restoration is off.
+    window.envelopeTargetHash = '';
     document.documentElement.classList.add('envelope-pending');
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
@@ -289,7 +291,7 @@
     const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal');
     function finishEnvelope(){if(envelopeIntro.hidden)return;envelopeIntro.classList.add('is-closing');document.documentElement.classList.remove('envelope-pending');setTimeout(()=>{envelopeIntro.hidden=true;envelopeIntro.classList.remove('is-opening','is-closing');envelopeIntro.setAttribute('aria-hidden','true');const target=window.envelopeTargetHash;if(target){history.replaceState(null,'',location.pathname+location.search+target);const section=document.querySelector(target);if(section)section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}else window.scrollTo(0,0)},1000)}
     function openEnvelope(){if(envelopeIntro.classList.contains('is-opening'))return;envelopeIntro.classList.add('is-opening');setTimeout(finishEnvelope,matchMedia('(prefers-reduced-motion: reduce)').matches?150:2400)}
-    window.rearmEnvelopeIntro=()=>{window.envelopeTargetHash=location.hash;history.replaceState(null,'',location.pathname+location.search);envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
+    window.rearmEnvelopeIntro=()=>{window.envelopeTargetHash='';history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
     envelopeSeal.addEventListener('click',openEnvelope);
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
