@@ -172,15 +172,14 @@
     .envelope-pocket:after{background:linear-gradient(145deg,transparent 49.5%,#e8e8e5 50%,#fff 50.8%) center/100% 100% no-repeat;clip-path:polygon(0 100%,50% 48%,100% 100%);opacity:.8}
     .envelope-flap{position:absolute;z-index:4;inset:0 0 auto;height:54%;transform-origin:50% 0;transform:rotateX(0);transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.2,.7,.2,1);backface-visibility:visible;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(180deg,#fff 0%,#f3f4f2 100%);filter:drop-shadow(0 2px 2px #4442)}
     .envelope-seal{position:absolute;z-index:5;left:50%;top:50%;width:64px;height:64px;transform:translate(-50%,-50%);border:0;border-radius:50%;display:grid;place-items:center;color:#fff;font:18px 'Cormorant Garamond',serif;letter-spacing:-.04em;white-space:nowrap;cursor:pointer;background:radial-gradient(circle at 34% 28%,#c78383 0,#a84f56 38%,#7d3039 76%,#692630 100%);box-shadow:inset 0 2px 4px #fff7,inset 0 -5px 8px #4e182c77,0 5px 11px #3c283342;transition:opacity .45s,transform .55s,filter .45s}
-    .envelope-seal:before{content:"";position:absolute;inset:5px;border:1px solid #ffffff7a;border-radius:50%}.envelope-seal:hover{filter:brightness(1.08);transform:translate(-50%,-50%) scale(1.06)}.envelope-seal:focus-visible,.intro-skip:focus-visible,.intro-replay:focus-visible{outline:2px solid #9c8050;outline-offset:5px}
+    .envelope-seal:before{content:"";position:absolute;inset:5px;border:1px solid #ffffff7a;border-radius:50%}.envelope-seal:hover{filter:brightness(1.08);transform:translate(-50%,-50%) scale(1.06)}.envelope-seal:focus-visible{outline:2px solid #9c8050;outline-offset:5px}
     .intro-hint{margin:28px 0 0;color:#8d8b83;font-size:9px;letter-spacing:.25em;text-transform:uppercase;opacity:0;animation:introText .8s ease .8s forwards}
-    .intro-skip{position:absolute;right:22px;bottom:20px;border:0;background:transparent;color:#85847d;font-size:10px;letter-spacing:.08em;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:10px}
     .envelope-intro.is-opening .envelope-flap{transform:rotateX(180deg)}
     .envelope-intro.is-opening .envelope-seal{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(22deg);filter:blur(3px);pointer-events:none}
     .envelope-intro.is-opening .letter-card{z-index:6;transform:translateY(-112%) scale(1.06)}
     .envelope-intro.is-closing{opacity:0;visibility:hidden;pointer-events:none}
     @keyframes envelopeArrival{to{opacity:1;transform:translateY(0) scale(1)}}@keyframes introText{to{opacity:1}}
-    @media(max-width:480px){.envelope-intro{padding:20px}.intro-heading{margin-bottom:26px}.envelope{width:min(88vw,400px)}.envelope-seal{width:56px;height:56px;font-size:20px}.intro-hint{margin-top:24px;font-size:8px}.intro-skip{right:10px;bottom:12px}}
+    @media(max-width:480px){.envelope-intro{padding:20px}.intro-heading{margin-bottom:26px}.envelope{width:min(88vw,400px)}.envelope-seal{width:56px;height:56px;font-size:20px}.intro-hint{margin-top:24px;font-size:8px}}
     @media(prefers-reduced-motion:reduce){.envelope-intro,.envelope-flap,.letter-card,.envelope-seal{transition-duration:.01ms!important}.envelope,.intro-heading,.intro-hint{animation-duration:.01ms!important;animation-delay:0s!important}}
   </style>
 </head>
@@ -197,7 +196,6 @@
       </div>
       <p class="intro-hint">Нажмите, чтобы открыть</p>
     </div>
-    <button class="intro-skip" id="introSkip" type="button">Перейти к приглашению</button>
   </section>
   <div class="photo-backdrop" aria-hidden="true"></div>
   <main class="page">
@@ -280,11 +278,11 @@
   </dialog>
   <audio id="weddingSong" src="MDee_-_Tojj_zhyry_80674123.mp3" preload="auto" autoplay loop></audio>
   <script>
-    const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal'),introSkip=document.getElementById('introSkip');
+    const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal');
     function finishEnvelope(){if(envelopeIntro.hidden)return;envelopeIntro.classList.add('is-closing');document.documentElement.classList.remove('envelope-pending');setTimeout(()=>{envelopeIntro.hidden=true;envelopeIntro.classList.remove('is-opening','is-closing');envelopeIntro.setAttribute('aria-hidden','true');const target=window.envelopeTargetHash;if(target){history.replaceState(null,'',location.pathname+location.search+target);const section=document.querySelector(target);if(section)section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}else window.scrollTo(0,0)},1000)}
     function openEnvelope(){if(envelopeIntro.classList.contains('is-opening'))return;envelopeIntro.classList.add('is-opening');setTimeout(finishEnvelope,matchMedia('(prefers-reduced-motion: reduce)').matches?150:3400)}
     window.rearmEnvelopeIntro=()=>{window.envelopeTargetHash=location.hash;history.replaceState(null,'',location.pathname+location.search);envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
-    envelopeSeal.addEventListener('click',openEnvelope);introSkip.addEventListener('click',finishEnvelope);
+    envelopeSeal.addEventListener('click',openEnvelope);
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
     const musicStartAt=48;
