@@ -227,11 +227,11 @@
       <div class="dialog-actions"><button class="button secondary" value="cancel">Жабу</button><button class="button primary" id="rsvpCopy" type="button" disabled>WHATSAPP-ҚА ЖІБЕРУ</button></div>
     </form>
   </dialog>
-  <audio id="weddingSong" src="sulu-kyz.mp3" preload="auto" autoplay loop></audio>
+  <audio id="weddingSong" src="MDee_-_Tojj_zhyry_80674123.mp3" preload="auto" autoplay loop></audio>
   <script>
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
-    const musicStartAt=16.5;
+    const musicStartAt=33;
     function seekToMusicStart(){if(weddingSong.currentTime<musicStartAt&&Number.isFinite(weddingSong.duration)&&weddingSong.duration>musicStartAt)weddingSong.currentTime=musicStartAt}
     weddingSong.addEventListener('loadedmetadata',seekToMusicStart,{once:true});
     seekToMusicStart();
