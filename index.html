@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f0e5">
-  <meta name="description" content="Дамир мен Айымның үйлену тойына арналған шақыру. 28 қараша 2026 жыл.">
+  <meta name="description" content="Дамир мен Айымның үйлену тойына арналған шақыру. 29 қараша 2026 жыл.">
   <title>Дамир мен Айым — үйлену тойына шақыру</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
     .button:hover{transform:translateY(-2px)}.button:focus-visible{outline:3px solid rgba(177,138,74,.5);outline-offset:3px}
     .button.primary{background:var(--green);color:#fff9eb;border:1px solid var(--gold);box-shadow:0 7px 18px rgba(23,63,53,.18);font-size:11px;letter-spacing:.12em}.button.primary:hover{background:var(--green-deep);box-shadow:0 10px 24px rgba(23,63,53,.24)}
     .button.secondary{width:auto;min-height:39px;padding:0 20px;color:var(--green);border:1px solid rgba(177,138,74,.6);font-size:10px;letter-spacing:.1em}.button.secondary:hover{background:rgba(177,138,74,.08)}
-    .music{position:absolute;right:31px;top:29px;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(177,138,74,.55);background:rgba(251,248,240,.78);color:var(--green);cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}.music:hover{background:#fff;transform:rotate(8deg)}.music svg{width:17px;height:17px}.music-label{position:absolute;right:48px;white-space:nowrap;font-size:8px;letter-spacing:.1em;color:var(--muted);opacity:0;transition:opacity .2s}.music:hover .music-label,.music:focus-visible .music-label{opacity:1}
+    .music{position:absolute;right:31px;top:29px;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(177,138,74,.55);background:rgba(251,248,240,.78);color:var(--green);cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}.music:hover{background:#fff;transform:rotate(8deg)}.music[aria-pressed="true"]{background:var(--green);color:#fff9eb;box-shadow:0 0 0 4px rgba(177,138,74,.12)}.music svg{width:17px;height:17px}.music-label{position:absolute;right:48px;white-space:nowrap;font-size:8px;letter-spacing:.1em;color:var(--muted);opacity:0;transition:opacity .2s}.music:hover .music-label,.music:focus-visible .music-label{opacity:1}.music-hint{position:absolute;right:28px;top:77px;z-index:3;padding:7px 10px;border:1px solid rgba(177,138,74,.45);background:var(--paper-light);color:var(--green);font-size:9px;letter-spacing:.04em;box-shadow:0 5px 14px #102f281c}.music-hint[hidden]{display:none}
     .landscape{position:relative;width:calc(100% + 68px);height:161px;margin:22px -34px 0;overflow:hidden;color:var(--green)}.landscape svg{width:100%;height:100%;display:block}.landscape .sun{fill:rgba(177,138,74,.12);stroke:var(--gold);stroke-width:1}.landscape .mountain{fill:#dce1d1;stroke:var(--green);stroke-width:1.2}.landscape .ridge{fill:none;stroke:var(--gold);stroke-width:1.1}.landscape .yurt{fill:#f6f0e3;stroke:var(--green);stroke-width:1.5}.landscape .detail-line{fill:none;stroke:var(--gold);stroke-width:1.2}.landscape .ground{fill:#173f35}
     .footnote{position:absolute;bottom:13px;left:0;right:0;color:rgba(245,240,229,.76);font:italic 13px 'Cormorant Garamond',serif;letter-spacing:.08em}
     .scroll-hint{margin:10px auto 0;color:var(--gold);font-size:9px;letter-spacing:.22em;text-transform:uppercase;animation:hintFloat 2s ease-in-out infinite}
@@ -101,7 +101,8 @@
       <span class="corner tr" aria-hidden="true"><svg viewBox="0 0 110 110" fill="none"><path d="M7 66C30 66 32 32 7 32M7 48C23 48 24 12 55 12M15 14c0 23 34 24 34 0M34 12c0 12 17 18 28 4M10 83c21 0 35-15 35-37M10 97c29 0 52-19 52-49M10 107c37 0 69-25 69-61M25 105c0-18 14-30 31-30s26-13 26-29M56 12c-2 22 16 29 32 29M77 13c0 16 13 23 23 23M89 15c0 8 5 14 13 17" stroke="currentColor" stroke-width="1"/><path d="M12 32c9 0 12 9 4 13-7 3-7 11 2 12 8 1 10 9 3 13m26-56c-2 9 8 14 15 9s12-1 11 6m2 18c-12 0-18 10-13 17s1 13-8 13" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>
       <span class="corner bl" aria-hidden="true"><svg viewBox="0 0 110 110" fill="none"><path d="M7 66C30 66 32 32 7 32M7 48C23 48 24 12 55 12M15 14c0 23 34 24 34 0M34 12c0 12 17 18 28 4M10 83c21 0 35-15 35-37M10 97c29 0 52-19 52-49M10 107c37 0 69-25 69-61M25 105c0-18 14-30 31-30s26-13 26-29M56 12c-2 22 16 29 32 29M77 13c0 16 13 23 23 23M89 15c0 8 5 14 13 17" stroke="currentColor" stroke-width="1"/><path d="M12 32c9 0 12 9 4 13-7 3-7 11 2 12 8 1 10 9 3 13m26-56c-2 9 8 14 15 9s12-1 11 6m2 18c-12 0-18 10-13 17s1 13-8 13" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>
       <span class="corner br" aria-hidden="true"><svg viewBox="0 0 110 110" fill="none"><path d="M7 66C30 66 32 32 7 32M7 48C23 48 24 12 55 12M15 14c0 23 34 24 34 0M34 12c0 12 17 18 28 4M10 83c21 0 35-15 35-37M10 97c29 0 52-19 52-49M10 107c37 0 69-25 69-61M25 105c0-18 14-30 31-30s26-13 26-29M56 12c-2 22 16 29 32 29M77 13c0 16 13 23 23 23M89 15c0 8 5 14 13 17" stroke="currentColor" stroke-width="1"/><path d="M12 32c9 0 12 9 4 13-7 3-7 11 2 12 8 1 10 9 3 13m26-56c-2 9 8 14 15 9s12-1 11 6m2 18c-12 0-18 10-13 17s1 13-8 13" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>
-      <button class="music" id="musicToggle" type="button" aria-label="Сұлу қыз әнін қосу" aria-pressed="false"><span class="music-label">СҰЛУ ҚЫЗ</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
+      <button class="music" id="musicToggle" type="button" aria-label="Көңіл толқыны әнін қосу" aria-pressed="false"><span class="music-label">КӨҢІЛ ТОЛҚЫНЫ</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
+      <span class="music-hint" id="musicHint" role="status" hidden>Әуенді қосу үшін түртіңіз</span>
       <div class="content">
         <div class="reveal seal" aria-hidden="true">Д&nbsp; А</div>
         <p class="reveal eyebrow">Ізгі ниетпен шақырамыз</p>
@@ -110,8 +111,8 @@
         <h1 class="reveal" id="couple-names">Дамир<span>мен</span>Айым</h1>
         <p class="reveal description">Сіздерді шаңырақ көтеру қуанышымызға<br>арналған ақ дастарханымыздың қадірлі қонағы<br>болуға шақырамыз!</p>
         <div class="reveal details" aria-label="Той туралы ақпарат">
-          <div class="detail"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h3m3 0h3m-9 4h3"/></svg><span class="detail-label">Күні</span><span class="detail-value">28 қараша 2026 жыл</span></div>
-          <div class="detail"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="detail-label">Басталуы</span><span class="detail-value">17:00</span></div>
+          <div class="detail"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h3m3 0h3m-9 4h3"/></svg><span class="detail-label">Күні</span><span class="detail-value">29 қараша 2026 жыл</span></div>
+          <div class="detail"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="detail-label">Басталуы</span><span class="detail-value">15:00</span></div>
           <div class="detail address"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span class="detail-label">Мекенжайы</span><span class="detail-value">Ермек Серкебаев көшесі, 11<br>«Гаухартас» банкет залы</span></div>
         </div>
         <p class="reveal hosts">Той иелері<strong>Жеңіс &amp; Алма</strong></p>
@@ -137,8 +138,8 @@
       <h2 id="celebration-title">Қуанышымызға ортақ болыңыз</h2>
       <p class="section-copy">Екі жүректің бір арнаға тоғысқан ерекше күнінде жанымыздан табылып, қуанышымызды бірге бөлісіңіздер.</p>
       <div class="schedule" aria-label="Той бағдарламасы">
-        <div class="schedule-item"><span class="schedule-time">16:30</span><span class="schedule-label">Қонақтарды қарсы алу</span></div>
-        <div class="schedule-item"><span class="schedule-time">17:00</span><span class="schedule-label">Тойдың басталуы</span></div>
+        <div class="schedule-item"><span class="schedule-time">14:30</span><span class="schedule-label">Қонақтарды қарсы алу</span></div>
+        <div class="schedule-item"><span class="schedule-time">15:00</span><span class="schedule-label">Тойдың басталуы</span></div>
         <div class="schedule-item"><span class="schedule-time">Кеш бойы</span><span class="schedule-label">Ән мен қуаныш</span></div>
       </div>
       <a class="button secondary" href="#location">МЕКЕНЖАЙДЫ КӨРУ <span aria-hidden="true">⌄</span></a>
@@ -167,12 +168,14 @@
       <div class="dialog-actions"><button class="button secondary" value="cancel">Жабу</button><button class="button primary" id="rsvpCopy" type="button" disabled>ЖАУАПТЫ КӨШІРУ</button></div>
     </form>
   </dialog>
-  <audio id="weddingSong" src="sulu-kyz.mp3" preload="none" loop></audio>
+  <audio id="weddingSong" src="konil-tolkyny.mp3" preload="auto" autoplay loop></audio>
   <script>
-    // Положите разрешённый аудиофайл «Сұлу қыз» рядом с invitation.html.
-    const musicButton=document.getElementById('musicToggle'),weddingSong=document.getElementById('weddingSong');
+    const musicButton=document.getElementById('musicToggle'),weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
-    musicButton.addEventListener('click',async()=>{if(weddingSong.paused){try{await weddingSong.play();musicButton.setAttribute('aria-pressed','true');musicButton.setAttribute('aria-label','Сұлу қыз әнін өшіру')}catch{musicButton.title='Добавьте файл sulu-kyz.mp3 рядом с invitation.html'}}else{weddingSong.pause();musicButton.setAttribute('aria-pressed','false');musicButton.setAttribute('aria-label','Сұлу қыз әнін қосу')}});
+    function syncMusicButton(){const playing=!weddingSong.paused;musicButton.setAttribute('aria-pressed',String(playing));musicButton.setAttribute('aria-label',playing?'Көңіл толқыны әнін өшіру':'Көңіл толқыны әнін қосу');if(playing)musicHint.hidden=true}
+    weddingSong.addEventListener('play',syncMusicButton);weddingSong.addEventListener('pause',syncMusicButton);
+    musicButton.addEventListener('click',async()=>{if(weddingSong.paused){try{await weddingSong.play();musicHint.hidden=true}catch{musicHint.hidden=false}}else weddingSong.pause()});
+    weddingSong.play().then(syncMusicButton).catch(()=>{syncMusicButton();musicHint.hidden=false});
     const dialog=document.getElementById('rsvpDialog'),openButton=document.getElementById('rsvpOpen'),copyButton=document.getElementById('rsvpCopy'),status=document.getElementById('rsvpStatus');let answer='';
     openButton.addEventListener('click',()=>dialog.showModal());
     document.querySelectorAll('.choice').forEach(choice=>choice.addEventListener('click',()=>{answer=choice.dataset.answer;document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed',String(item===choice)));copyButton.disabled=false;status.textContent='Жауабыңыз таңдалды. Оны көшіріп, той иелеріне жібере аласыз.'}));
