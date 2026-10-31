@@ -161,7 +161,7 @@
     .intro-heading{margin:0 0 32px;color:#526057;font:italic clamp(23px,5vw,31px) 'Cormorant Garamond',serif;letter-spacing:.035em;opacity:0;animation:introText .9s ease .4s forwards}
     .envelope{position:relative;width:min(82vw,440px);aspect-ratio:1.62;filter:drop-shadow(0 24px 25px rgba(45,49,47,.16));opacity:0;transform:translateY(24px) scale(.96);animation:envelopeArrival 1.15s cubic-bezier(.2,.75,.2,1) .08s forwards;transform-style:preserve-3d}
     .envelope-back{position:absolute;inset:0;border-radius:4px;background:linear-gradient(145deg,#fff 0%,#f7f7f5 100%);box-shadow:inset 0 0 0 1px rgba(130,132,128,.2),inset 0 2px 5px #fff;}
-    .letter-card{position:absolute;z-index:1;left:8%;top:7%;width:84%;height:87%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,#fff,#fbfbfa);border:1px solid #e9e9e5;box-shadow:0 6px 18px #4442;color:#33483e;text-align:center;transform:translateY(0) scale(.96);transition:transform 1.25s cubic-bezier(.2,.72,.2,1) .65s}
+    .letter-card{position:absolute;z-index:1;left:8%;top:7%;width:84%;height:87%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,#fff,#fbfbfa);border:1px solid #e9e9e5;box-shadow:0 6px 18px #4442;color:#33483e;text-align:center;transform:translateY(0) scale(.96);transition:transform 1.25s cubic-bezier(.2,.72,.2,1) .65s,z-index 0s .9s}
     .letter-card:before{content:"";position:absolute;inset:8px;border:1px solid #e4dfd4}
     .letter-card .card-kicker{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:#a28a5e}
     .letter-card strong{margin:10px 0 5px;font:clamp(28px,8vw,40px) 'Marck Script',cursive;font-weight:400}
@@ -177,7 +177,7 @@
     .intro-skip{position:absolute;right:22px;bottom:20px;border:0;background:transparent;color:#85847d;font-size:10px;letter-spacing:.08em;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:10px}
     .envelope-intro.is-opening .envelope-flap{transform:rotateX(180deg)}
     .envelope-intro.is-opening .envelope-seal{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(22deg);filter:blur(3px);pointer-events:none}
-    .envelope-intro.is-opening .letter-card{transform:translateY(-112%) scale(1.06)}
+    .envelope-intro.is-opening .letter-card{z-index:6;transform:translateY(-112%) scale(1.06)}
     .envelope-intro.is-closing{opacity:0;visibility:hidden;pointer-events:none}
     .intro-replay{position:fixed;z-index:4;right:14px;bottom:12px;border:1px solid #b18a4a55;border-radius:2px;background:#fbf8f0dc;color:#59685d;padding:8px 11px;font-size:9px;letter-spacing:.05em;cursor:pointer;backdrop-filter:blur(6px)}
     @keyframes envelopeArrival{to{opacity:1;transform:translateY(0) scale(1)}}@keyframes introText{to{opacity:1}}
