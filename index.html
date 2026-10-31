@@ -43,7 +43,7 @@
     .description{margin:8px 0 0;font:italic 17px/1.7 'Cormorant Garamond',serif;color:#52665a}
     .countdown{width:min(100%,390px);margin:22px auto 0;padding:13px 17px 15px;border-top:1px solid rgba(177,138,74,.56);border-bottom:1px solid rgba(177,138,74,.4);background:rgba(251,248,240,.52);backdrop-filter:blur(3px)}
     .countdown-title{margin:0 0 10px;color:var(--green);font-size:9px;letter-spacing:.2em;text-transform:uppercase}
-    .countdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
     .countdown-unit{display:flex;flex-direction:column;align-items:center;gap:3px}
     .countdown-value{color:var(--gold);font:31px/1 'Cormorant Garamond',serif;font-variant-numeric:tabular-nums}
     .countdown-label{color:var(--muted);font-size:8px;letter-spacing:.14em;text-transform:uppercase}
@@ -122,7 +122,7 @@
     @keyframes nameGlow{0%,100%{text-shadow:0 1px 0 rgba(177,138,74,.05);filter:drop-shadow(0 0 0 rgba(177,138,74,0));scale:1}50%{text-shadow:0 0 24px rgba(177,138,74,.62);filter:drop-shadow(0 0 8px rgba(177,138,74,.28));scale:1.035}}
     @keyframes titleReveal{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
     @keyframes copyReveal{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:480px){.page{padding:12px 10px 24px;gap:16px}.invitation{min-height:840px;padding:43px 23px 0}.corner{width:80px;height:80px}.music{right:26px;top:24px;width:37px;height:37px}.eyebrow{font-size:9px}.invite-text{font-size:16px;max-width:340px}h1{font-size:clamp(53px,14vw,72px)}.countdown{margin-top:17px;padding:12px 10px}.countdown-value{font-size:28px}.details{gap:9px;margin-top:21px}.detail{min-height:82px}.detail-value{font-size:18px}.address .detail-value{font-size:15px}.hosts{margin-top:18px}.actions{margin-top:19px}.landscape{height:184px;margin-top:17px;width:calc(100% + 46px);margin-left:-23px;margin-right:-23px}.scroll-section{padding:38px 22px}.scroll-section h2{font-size:39px}.schedule{gap:7px}.schedule-item{padding:14px 4px}.schedule-label{font-size:8px}}
+    @media(max-width:480px){.page{padding:12px 10px 24px;gap:16px}.invitation{min-height:840px;padding:43px 23px 0}.corner{width:80px;height:80px}.music{right:26px;top:24px;width:37px;height:37px}.eyebrow{font-size:9px}.invite-text{font-size:16px;max-width:340px}h1{font-size:clamp(53px,14vw,72px)}.countdown{margin-top:17px;padding:12px 10px}.countdown-value{font-size:26px}.countdown-label{font-size:7px;letter-spacing:.1em}.details{gap:9px;margin-top:21px}.detail{min-height:82px}.detail-value{font-size:18px}.address .detail-value{font-size:15px}.hosts{margin-top:18px}.actions{margin-top:19px}.landscape{height:184px;margin-top:17px;width:calc(100% + 46px);margin-left:-23px;margin-right:-23px}.scroll-section{padding:38px 22px}.scroll-section h2{font-size:39px}.schedule{gap:7px}.schedule-item{padding:14px 4px}.schedule-label{font-size:8px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
   </style>
 </head>
@@ -149,6 +149,7 @@
             <div class="countdown-unit"><span class="countdown-value" id="countdownDays">--</span><span class="countdown-label">Күн</span></div>
             <div class="countdown-unit"><span class="countdown-value" id="countdownHours">--</span><span class="countdown-label">Сағат</span></div>
             <div class="countdown-unit"><span class="countdown-value" id="countdownMinutes">--</span><span class="countdown-label">Минут</span></div>
+            <div class="countdown-unit"><span class="countdown-value" id="countdownSeconds">--</span><span class="countdown-label">Секунд</span></div>
           </div>
         </div>
         <div class="reveal details" aria-label="Той туралы ақпарат">
@@ -246,7 +247,7 @@
     musicButton.addEventListener('click',()=>{if(weddingSong.paused)tryStartMusic();else weddingSong.pause()});
     tryStartMusic();
     const countdownTarget=new Date(2026,10,29,15,0,0).getTime();
-    function updateCountdown(){const remaining=Math.max(0,countdownTarget-Date.now());const days=Math.floor(remaining/86400000),hours=Math.floor(remaining%86400000/3600000),minutes=Math.floor(remaining%3600000/60000);document.getElementById('countdownDays').textContent=String(days).padStart(2,'0');document.getElementById('countdownHours').textContent=String(hours).padStart(2,'0');document.getElementById('countdownMinutes').textContent=String(minutes).padStart(2,'0');if(remaining===0)document.getElementById('countdownTitle').textContent='Той басталды!'}
+    function updateCountdown(){const remaining=Math.max(0,countdownTarget-Date.now());const days=Math.floor(remaining/86400000),hours=Math.floor(remaining%86400000/3600000),minutes=Math.floor(remaining%3600000/60000),seconds=Math.floor(remaining%60000/1000);document.getElementById('countdownDays').textContent=String(days).padStart(2,'0');document.getElementById('countdownHours').textContent=String(hours).padStart(2,'0');document.getElementById('countdownMinutes').textContent=String(minutes).padStart(2,'0');document.getElementById('countdownSeconds').textContent=String(seconds).padStart(2,'0');if(remaining===0)document.getElementById('countdownTitle').textContent='Той басталды!'}
     updateCountdown();setInterval(updateCountdown,1000);
     const dialog=document.getElementById('rsvpDialog'),openButton=document.getElementById('rsvpOpen'),copyButton=document.getElementById('rsvpCopy'),status=document.getElementById('rsvpStatus'),guestName=document.getElementById('guestName'),guestCount=document.getElementById('guestCount'),guestMinus=document.getElementById('guestMinus'),guestPlus=document.getElementById('guestPlus');let answer='';
     openButton.addEventListener('click',()=>dialog.showModal());
