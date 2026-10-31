@@ -133,6 +133,10 @@
     .stepper-button{background-image:linear-gradient(rgba(177,138,74,.08),rgba(177,138,74,.08)),linear-gradient(120deg,#8b6428,#ffe8a0,#bd8a2e,#fff2c1,#8b6428)}
     .button:hover,.choice:hover,.stepper-button:hover:not(:disabled),.music:hover{box-shadow:0 0 15px rgba(255,220,135,.58),0 0 30px rgba(220,174,74,.32)}
     .music:hover{background-image:linear-gradient(#fff,#fff),linear-gradient(120deg,#8b6428,#ffe8a0,#bd8a2e,#fff2c1,#8b6428)}
+    dialog .button,dialog .choice,dialog .stepper-button{animation:accentBorder 7s linear infinite;box-shadow:0 0 5px rgba(220,174,74,.16),0 0 10px rgba(220,174,74,.07)}
+    dialog .button.primary{animation:buttonGleam 5s ease-in-out infinite,accentBorder 7s linear infinite;box-shadow:0 0 5px rgba(220,174,74,.2),0 5px 14px rgba(23,63,53,.14)}
+    dialog .button:hover,dialog .choice:hover,dialog .stepper-button:hover:not(:disabled){box-shadow:0 0 8px rgba(255,220,135,.32),0 0 14px rgba(220,174,74,.16)}
+    dialog .choice[aria-pressed="true"]{box-shadow:inset 3px 0 var(--gold),0 0 7px rgba(220,174,74,.22)}
     @keyframes goldAura{0%,100%{filter:drop-shadow(0 0 1px rgba(255,220,135,.35))}50%{filter:drop-shadow(0 0 5px rgba(255,220,135,.9))}}
     @keyframes accentBorder{0%,100%{background-position:0 0,0% 50%}50%{background-position:0 0,100% 50%}}
     @media(max-width:480px){.page{padding:12px 10px 24px;gap:16px}.invitation{min-height:0;padding:43px 23px 27px}.corner{width:80px;height:80px}.music{right:26px;top:24px;width:37px;height:37px}.eyebrow{font-size:9px}.invite-text{font-size:16px;max-width:340px}h1{font-size:clamp(53px,14vw,72px)}.countdown{margin-top:17px;padding:12px 10px}.countdown-value{font-size:26px}.countdown-label{font-size:7px;letter-spacing:.1em}.details{gap:9px;margin-top:21px}.detail{min-height:82px}.detail-value{font-size:18px}.address .detail-value{font-size:15px}.hosts{margin-top:18px}.actions{margin-top:19px}.scroll-section{padding:38px 22px}.scroll-section h2{font-size:39px}.schedule{gap:7px}.schedule-item{padding:14px 4px}.schedule-label{font-size:8px}}
