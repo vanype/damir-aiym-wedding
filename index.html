@@ -120,6 +120,19 @@
     @keyframes nameGlow{0%,100%{text-shadow:0 1px 0 rgba(177,138,74,.05);filter:drop-shadow(0 0 0 rgba(177,138,74,0));scale:1}50%{text-shadow:0 0 24px rgba(177,138,74,.62);filter:drop-shadow(0 0 8px rgba(177,138,74,.28));scale:1.035}}
     @keyframes titleReveal{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
     @keyframes copyReveal{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    /* Убираем нарисованные вручную завитки и орнаментальные рамки. */
+    .corner,.invitation:before,.invitation:after,.seal:before,.seal:after,
+    .ornament,.scroll-section:before,.scroll-section:after,
+    .schedule-item:before,.location-card:before,.location-card:after{display:none!important}
+    /* Тонкая акцентная градиентная обводка для интерактивных кнопок. */
+    .button{position:relative;border:1px solid transparent!important;background-origin:border-box;background-clip:padding-box,border-box}
+    .button.primary{background-image:linear-gradient(115deg,#102f28 0%,#1d5949 48%,#102f28 100%),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e);background-size:100% 100%,260% 260%;animation:buttonGleam 5s ease-in-out infinite,buttonBreath 3.2s ease-in-out infinite,accentBorder 6s linear infinite}
+    .button.secondary{background-color:transparent;background-image:linear-gradient(rgba(251,248,240,.9),rgba(251,248,240,.9)),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e);background-size:100% 100%,260% 260%;animation:secondaryGleam 5s ease-in-out infinite,accentBorder 6s linear infinite}
+    .closing .button.secondary{background-image:linear-gradient(rgba(16,47,40,.96),rgba(16,47,40,.96)),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e)}
+    .choice,.stepper-button,.music{border:1px solid transparent;background-origin:border-box;background-clip:padding-box,border-box;background-image:linear-gradient(var(--paper-light),var(--paper-light)),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e);background-size:100% 100%,260% 260%;animation:accentBorder 6s linear infinite}
+    .choice[aria-pressed="true"],.music[aria-pressed="true"]{background-image:linear-gradient(var(--green),var(--green)),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e)}
+    .stepper-button{background-image:linear-gradient(rgba(177,138,74,.08),rgba(177,138,74,.08)),linear-gradient(125deg,#97703c,#f3dda2,#628976,#d1a64e)}
+    @keyframes accentBorder{0%,100%{background-position:0 0,0% 50%}50%{background-position:0 0,100% 50%}}
     @media(max-width:480px){.page{padding:12px 10px 24px;gap:16px}.invitation{min-height:840px;padding:43px 23px 0}.corner{width:80px;height:80px}.music{right:26px;top:24px;width:37px;height:37px}.eyebrow{font-size:9px}.invite-text{font-size:16px;max-width:340px}h1{font-size:clamp(53px,14vw,72px)}.countdown{margin-top:17px;padding:12px 10px}.countdown-value{font-size:26px}.countdown-label{font-size:7px;letter-spacing:.1em}.details{gap:9px;margin-top:21px}.detail{min-height:82px}.detail-value{font-size:18px}.address .detail-value{font-size:15px}.hosts{margin-top:18px}.actions{margin-top:19px}.landscape{height:184px;margin-top:17px;width:calc(100% + 46px);margin-left:-23px;margin-right:-23px}.scroll-section{padding:38px 22px}.scroll-section h2{font-size:39px}.schedule{gap:7px}.schedule-item{padding:14px 4px}.schedule-label{font-size:8px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
   </style>
