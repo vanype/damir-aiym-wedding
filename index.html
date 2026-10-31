@@ -214,17 +214,17 @@
   </main>
   <dialog id="rsvpDialog" aria-labelledby="rsvpTitle">
     <form method="dialog" id="rsvpForm">
-      <h2 id="rsvpTitle">Подтвердите участие</h2>
-      <p>Выберите ответ. Имя можно не указывать.</p>
+      <h2 id="rsvpTitle">Қатысуыңызды растаңыз</h2>
+      <p>Жауабыңызды таңдаңыз. Есіміңізді көрсету міндетті емес.</p>
       <div class="choices">
-        <button class="choice" type="button" aria-pressed="false" data-answer="Приду одна" data-count="1">Приду одна</button>
-        <button class="choice" type="button" aria-pressed="false" data-answer="Приду с мужем" data-count="2">Приду с мужем</button>
-        <button class="choice" type="button" aria-pressed="false" data-answer="К сожалению не приду" data-count="0">К сожалению не приду</button>
+        <button class="choice" type="button" aria-pressed="false" data-answer="Жалғыз келемін" data-count="1">Жалғыз келемін</button>
+        <button class="choice" type="button" aria-pressed="false" data-answer="Жұбайыммен келемін" data-count="2">Жұбайыммен келемін</button>
+        <button class="choice" type="button" aria-pressed="false" data-answer="Өкінішке қарай, келе алмаймын" data-count="0">Өкінішке қарай, келе алмаймын</button>
       </div>
-      <div class="rsvp-field"><label for="guestName">Имя · по желанию</label><input id="guestName" name="guestName" type="text" autocomplete="name" maxlength="80" placeholder="Ваше имя"></div>
-      <div class="rsvp-field"><label for="guestCount">Количество человек</label><div class="guest-stepper"><button class="stepper-button" id="guestMinus" type="button" aria-label="Уменьшить количество гостей">−</button><input id="guestCount" name="guestCount" type="number" min="0" max="20" value="1" inputmode="numeric" readonly aria-live="polite"><button class="stepper-button" id="guestPlus" type="button" aria-label="Увеличить количество гостей">+</button></div></div>
+      <div class="rsvp-field"><label for="guestName">Есіміңіз · қалауыңыз бойынша</label><input id="guestName" name="guestName" type="text" autocomplete="name" maxlength="80" placeholder="Есіміңізді жазыңыз"></div>
+      <div class="rsvp-field"><label for="guestCount">Қонақтар саны</label><div class="guest-stepper"><button class="stepper-button" id="guestMinus" type="button" aria-label="Қонақтар санын азайту">−</button><input id="guestCount" name="guestCount" type="number" min="0" max="20" value="1" inputmode="numeric" readonly aria-live="polite"><button class="stepper-button" id="guestPlus" type="button" aria-label="Қонақтар санын көбейту">+</button></div></div>
       <p class="status" id="rsvpStatus" aria-live="polite"></p>
-      <div class="dialog-actions"><button class="button secondary" value="cancel">Закрыть</button><button class="button primary" id="rsvpCopy" type="button" disabled>ОТПРАВИТЬ В WHATSAPP</button></div>
+      <div class="dialog-actions"><button class="button secondary" value="cancel">Жабу</button><button class="button primary" id="rsvpCopy" type="button" disabled>WHATSAPP-ҚА ЖІБЕРУ</button></div>
     </form>
   </dialog>
   <audio id="weddingSong" src="sulu-kyz.mp3" preload="auto" autoplay loop></audio>
@@ -250,10 +250,10 @@
     openButton.addEventListener('click',()=>dialog.showModal());
     function updateRsvpButton(){copyButton.disabled=!answer}
     function syncGuestStepper(){const unavailable=guestCount.disabled;guestMinus.disabled=unavailable||Number(guestCount.value)<=1;guestPlus.disabled=unavailable||Number(guestCount.value)>=20}
-    document.querySelectorAll('.choice').forEach(choice=>choice.addEventListener('click',()=>{answer=choice.dataset.answer;guestCount.value=choice.dataset.count;guestCount.disabled=choice.dataset.count==='0';document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed',String(item===choice)));status.textContent='Ответ выбран.';syncGuestStepper();updateRsvpButton()}));
+    document.querySelectorAll('.choice').forEach(choice=>choice.addEventListener('click',()=>{answer=choice.dataset.answer;guestCount.value=choice.dataset.count;guestCount.disabled=choice.dataset.count==='0';document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed',String(item===choice)));status.textContent='Жауап таңдалды.';syncGuestStepper();updateRsvpButton()}));
     guestMinus.addEventListener('click',()=>{guestCount.value=Math.max(1,Number(guestCount.value)-1);syncGuestStepper()});
     guestPlus.addEventListener('click',()=>{guestCount.value=Math.min(20,Number(guestCount.value)+1);syncGuestStepper()});
-    function openWhatsAppReply(){if(!answer){status.textContent='Сначала выберите вариант ответа.';return}const name=guestName.value.trim();const nameLine=name?`Имя: ${name}. `:'';const countLine=guestCount.disabled?'':` Количество человек: ${guestCount.value}.`;const message=`Здравствуйте! ${nameLine}Дамир и Айым, свадьба 29 ноября 2026 года: ${answer}.${countLine}`;const whatsappUrl=`https://wa.me/77015697540?text=${encodeURIComponent(message)}`;window.open(whatsappUrl,'_blank','noopener,noreferrer');status.textContent='Сообщение подготовлено в WhatsApp.'}
+    function openWhatsAppReply(){if(!answer){status.textContent='Алдымен жауап нұсқасын таңдаңыз.';return}const name=guestName.value.trim();const nameLine=name?`Есімім: ${name}. `:'';const countLine=guestCount.disabled?'':` Қонақтар саны: ${guestCount.value}.`;const message=`Сәлеметсіз бе! ${nameLine}Дамир мен Айымның 2026 жылғы 29 қарашадағы үйлену тойына қатысу жауабым: ${answer}.${countLine}`;const whatsappUrl=`https://wa.me/77015697540?text=${encodeURIComponent(message)}`;window.open(whatsappUrl,'_blank','noopener,noreferrer');status.textContent='WhatsApp-та хабарлама дайын.'}
     copyButton.addEventListener('click',openWhatsAppReply);
     dialog.addEventListener('close',()=>{answer='';copyButton.disabled=true;status.textContent='';guestName.value='';guestCount.value='1';guestCount.disabled=false;document.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed','false'));syncGuestStepper()});
     const scrollSections=document.querySelectorAll('.scroll-reveal');
