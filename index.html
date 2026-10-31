@@ -208,8 +208,12 @@
     weddingSong.volume=.9;
     function syncMusicButton(){const playing=!weddingSong.paused;musicButton.setAttribute('aria-pressed',String(playing));musicButton.setAttribute('aria-label',playing?'Көңіл толқыны әнін өшіру':'Көңіл толқыны әнін қосу');if(playing)musicHint.hidden=true}
     weddingSong.addEventListener('play',syncMusicButton);weddingSong.addEventListener('pause',syncMusicButton);
-    musicButton.addEventListener('click',async()=>{if(weddingSong.paused){try{await weddingSong.play();musicHint.hidden=true}catch{musicHint.hidden=false}}else weddingSong.pause()});
-    weddingSong.play().then(syncMusicButton).catch(()=>{syncMusicButton();musicHint.hidden=false});
+    async function tryStartMusic(){if(!weddingSong.paused)return true;try{await weddingSong.play();syncMusicButton();musicHint.hidden=true;document.removeEventListener('pointerdown',startMusicOnFirstTouch,true);document.removeEventListener('keydown',startMusicOnFirstKey,true);return true}catch{musicHint.hidden=false;return false}}
+    function startMusicOnFirstTouch(event){if(event.target.closest('#musicToggle'))return;tryStartMusic()}
+    function startMusicOnFirstKey(){tryStartMusic()}
+    document.addEventListener('pointerdown',startMusicOnFirstTouch,true);document.addEventListener('keydown',startMusicOnFirstKey,true);
+    musicButton.addEventListener('click',()=>{if(weddingSong.paused)tryStartMusic();else weddingSong.pause()});
+    tryStartMusic();
     const dialog=document.getElementById('rsvpDialog'),openButton=document.getElementById('rsvpOpen'),copyButton=document.getElementById('rsvpCopy'),status=document.getElementById('rsvpStatus'),guestName=document.getElementById('guestName'),guestCount=document.getElementById('guestCount');let answer='';
     openButton.addEventListener('click',()=>dialog.showModal());
     function updateRsvpButton(){copyButton.disabled=!answer}
