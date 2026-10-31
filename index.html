@@ -158,7 +158,6 @@
       <span class="corner br" aria-hidden="true"><svg viewBox="0 0 110 110" fill="none"><path d="M7 66C30 66 32 32 7 32M7 48C23 48 24 12 55 12M15 14c0 23 34 24 34 0M34 12c0 12 17 18 28 4M10 83c21 0 35-15 35-37M10 97c29 0 52-19 52-49M10 107c37 0 69-25 69-61M25 105c0-18 14-30 31-30s26-13 26-29M56 12c-2 22 16 29 32 29M77 13c0 16 13 23 23 23M89 15c0 8 5 14 13 17" stroke="currentColor" stroke-width="1"/><path d="M12 32c9 0 12 9 4 13-7 3-7 11 2 12 8 1 10 9 3 13m26-56c-2 9 8 14 15 9s12-1 11 6m2 18c-12 0-18 10-13 17s1 13-8 13" stroke="currentColor" stroke-width="1"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>
       <div class="content">
         <div class="letter-art" aria-hidden="true"><img src="seal-art.png" alt="" fetchpriority="high"></div>
-        <button class="music" id="musicToggle" type="button" aria-label="Сұлу қыз әнін қосу" aria-pressed="false"><span class="music-label">СҰЛУ ҚЫЗ</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button>
         <span class="music-hint" id="musicHint" role="status" hidden>Әуенді қосу үшін түртіңіз</span>
         <p class="reveal eyebrow">Ізгі ниетпен шақырамыз</p>
         <div class="reveal ornament" aria-hidden="true"><span>❧</span></div>
@@ -230,19 +229,18 @@
   </dialog>
   <audio id="weddingSong" src="sulu-kyz.mp3" preload="auto" autoplay loop></audio>
   <script>
-    const musicButton=document.getElementById('musicToggle'),weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
+    const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
     const musicStartAt=16.5;
     function seekToMusicStart(){if(weddingSong.currentTime<musicStartAt&&Number.isFinite(weddingSong.duration)&&weddingSong.duration>musicStartAt)weddingSong.currentTime=musicStartAt}
     weddingSong.addEventListener('loadedmetadata',seekToMusicStart,{once:true});
     seekToMusicStart();
-    function syncMusicButton(){const playing=!weddingSong.paused;musicButton.setAttribute('aria-pressed',String(playing));musicButton.setAttribute('aria-label',playing?'Сұлу қыз әнін өшіру':'Сұлу қыз әнін қосу');if(playing)musicHint.hidden=true}
-    weddingSong.addEventListener('play',syncMusicButton);weddingSong.addEventListener('pause',syncMusicButton);
-    async function tryStartMusic(){if(!weddingSong.paused)return true;try{await weddingSong.play();syncMusicButton();musicHint.hidden=true;document.removeEventListener('pointerdown',startMusicOnFirstTouch,true);document.removeEventListener('keydown',startMusicOnFirstKey,true);return true}catch{musicHint.hidden=false;return false}}
-    function startMusicOnFirstTouch(event){if(event.target.closest('#musicToggle'))return;tryStartMusic()}
+    function syncMusicState(){if(!weddingSong.paused)musicHint.hidden=true}
+    weddingSong.addEventListener('play',syncMusicState);weddingSong.addEventListener('pause',syncMusicState);
+    async function tryStartMusic(){if(!weddingSong.paused)return true;try{await weddingSong.play();syncMusicState();musicHint.hidden=true;document.removeEventListener('pointerdown',startMusicOnFirstTouch,true);document.removeEventListener('keydown',startMusicOnFirstKey,true);return true}catch{musicHint.hidden=false;return false}}
+    function startMusicOnFirstTouch(){tryStartMusic()}
     function startMusicOnFirstKey(){tryStartMusic()}
     document.addEventListener('pointerdown',startMusicOnFirstTouch,true);document.addEventListener('keydown',startMusicOnFirstKey,true);
-    musicButton.addEventListener('click',()=>{if(weddingSong.paused)tryStartMusic();else weddingSong.pause()});
     tryStartMusic();
     const countdownTarget=new Date(2026,10,29,15,0,0).getTime();
     function updateCountdown(){const remaining=Math.max(0,countdownTarget-Date.now());const days=Math.floor(remaining/86400000),hours=Math.floor(remaining%86400000/3600000),minutes=Math.floor(remaining%3600000/60000),seconds=Math.floor(remaining%60000/1000);document.getElementById('countdownDays').textContent=String(days).padStart(2,'0');document.getElementById('countdownHours').textContent=String(hours).padStart(2,'0');document.getElementById('countdownMinutes').textContent=String(minutes).padStart(2,'0');document.getElementById('countdownSeconds').textContent=String(seconds).padStart(2,'0');if(remaining===0)document.getElementById('countdownTitle').textContent='Той басталды!'}
