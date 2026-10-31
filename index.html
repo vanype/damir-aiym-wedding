@@ -16,7 +16,7 @@
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     window.addEventListener('pageshow', event => {
       document.documentElement.style.scrollBehavior = 'auto';
-      if (event.persisted && window.replayEnvelopeIntro) window.replayEnvelopeIntro();
+      if (event.persisted && window.rearmEnvelopeIntro) window.rearmEnvelopeIntro();
       else if (!event.persisted) window.scrollTo(0, 0);
       requestAnimationFrame(() => document.documentElement.style.removeProperty('scroll-behavior'));
     });
@@ -179,9 +179,8 @@
     .envelope-intro.is-opening .envelope-seal{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(22deg);filter:blur(3px);pointer-events:none}
     .envelope-intro.is-opening .letter-card{z-index:6;transform:translateY(-112%) scale(1.06)}
     .envelope-intro.is-closing{opacity:0;visibility:hidden;pointer-events:none}
-    .intro-replay{position:fixed;z-index:4;right:14px;bottom:12px;border:1px solid #b18a4a55;border-radius:2px;background:#fbf8f0dc;color:#59685d;padding:8px 11px;font-size:9px;letter-spacing:.05em;cursor:pointer;backdrop-filter:blur(6px)}
     @keyframes envelopeArrival{to{opacity:1;transform:translateY(0) scale(1)}}@keyframes introText{to{opacity:1}}
-    @media(max-width:480px){.envelope-intro{padding:20px}.intro-heading{margin-bottom:26px}.envelope{width:min(88vw,400px)}.envelope-seal{width:56px;height:56px;font-size:20px}.intro-hint{margin-top:24px;font-size:8px}.intro-skip{right:10px;bottom:12px}.intro-replay{right:8px;bottom:8px}}
+    @media(max-width:480px){.envelope-intro{padding:20px}.intro-heading{margin-bottom:26px}.envelope{width:min(88vw,400px)}.envelope-seal{width:56px;height:56px;font-size:20px}.intro-hint{margin-top:24px;font-size:8px}.intro-skip{right:10px;bottom:12px}}
     @media(prefers-reduced-motion:reduce){.envelope-intro,.envelope-flap,.letter-card,.envelope-seal{transition-duration:.01ms!important}.envelope,.intro-heading,.intro-hint{animation-duration:.01ms!important;animation-delay:0s!important}}
   </style>
 </head>
@@ -200,7 +199,6 @@
     </div>
     <button class="intro-skip" id="introSkip" type="button">Перейти к приглашению</button>
   </section>
-  <button class="intro-replay" id="introReplay" type="button" hidden>Повторить конверт</button>
   <div class="photo-backdrop" aria-hidden="true"></div>
   <main class="page">
     <article class="invitation" aria-labelledby="couple-names">
@@ -282,12 +280,11 @@
   </dialog>
   <audio id="weddingSong" src="MDee_-_Tojj_zhyry_80674123.mp3" preload="auto" autoplay loop></audio>
   <script>
-    const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal'),introSkip=document.getElementById('introSkip'),introReplay=document.getElementById('introReplay');
-    function finishEnvelope(){if(envelopeIntro.hidden)return;envelopeIntro.classList.add('is-closing');document.documentElement.classList.remove('envelope-pending');setTimeout(()=>{envelopeIntro.hidden=true;envelopeIntro.classList.remove('is-opening','is-closing');envelopeIntro.setAttribute('aria-hidden','true');introReplay.hidden=false;const target=window.envelopeTargetHash;if(target){history.replaceState(null,'',location.pathname+location.search+target);const section=document.querySelector(target);if(section)section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}else window.scrollTo(0,0)},1000)}
+    const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal'),introSkip=document.getElementById('introSkip');
+    function finishEnvelope(){if(envelopeIntro.hidden)return;envelopeIntro.classList.add('is-closing');document.documentElement.classList.remove('envelope-pending');setTimeout(()=>{envelopeIntro.hidden=true;envelopeIntro.classList.remove('is-opening','is-closing');envelopeIntro.setAttribute('aria-hidden','true');const target=window.envelopeTargetHash;if(target){history.replaceState(null,'',location.pathname+location.search+target);const section=document.querySelector(target);if(section)section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}else window.scrollTo(0,0)},1000)}
     function openEnvelope(){if(envelopeIntro.classList.contains('is-opening'))return;envelopeIntro.classList.add('is-opening');setTimeout(finishEnvelope,matchMedia('(prefers-reduced-motion: reduce)').matches?150:3400)}
-    window.replayEnvelopeIntro=()=>{window.envelopeTargetHash=location.hash;history.replaceState(null,'',location.pathname+location.search);introReplay.hidden=true;envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
-    envelopeSeal.addEventListener('click',openEnvelope);introSkip.addEventListener('click',finishEnvelope);introReplay.addEventListener('click',window.replayEnvelopeIntro);
-    introReplay.hidden=true;
+    window.rearmEnvelopeIntro=()=>{window.envelopeTargetHash=location.hash;history.replaceState(null,'',location.pathname+location.search);envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
+    envelopeSeal.addEventListener('click',openEnvelope);introSkip.addEventListener('click',finishEnvelope);
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
     weddingSong.volume=.9;
     const musicStartAt=48;
