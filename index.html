@@ -16,7 +16,14 @@
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     window.addEventListener('pageshow', event => {
       document.documentElement.style.scrollBehavior = 'auto';
-      if (event.persisted && window.rearmEnvelopeIntro) window.rearmEnvelopeIntro();
+      if (event.persisted && window.rearmEnvelopeIntro) {
+        // Returning from an external link can restore both the old scroll
+        // position and an in-page hash. The envelope should reopen at the top.
+        history.replaceState(null, '', location.pathname + location.search);
+        window.envelopeTargetHash = '';
+        window.scrollTo(0, 0);
+        window.rearmEnvelopeIntro();
+      }
       else if (!event.persisted) window.scrollTo(0, 0);
       requestAnimationFrame(() => document.documentElement.style.removeProperty('scroll-behavior'));
     });
@@ -154,14 +161,15 @@
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
     /* Envelope intro is an independent cover over the existing invitation. */
     html.envelope-pending,html.envelope-pending body{overflow:hidden}
-    html.envelope-pending .page,html.envelope-pending .site-footer{visibility:hidden}
+    .page,.site-footer{transition:opacity .7s ease}
+    html.envelope-pending .page,html.envelope-pending .site-footer{visibility:hidden;opacity:0}
     .envelope-intro{position:fixed;inset:0;z-index:20;display:grid;place-items:center;overflow:hidden;padding:24px;background:radial-gradient(ellipse at 50% 34%,#fff 0,#fbfaf7 42%,#f2f0eb 100%);opacity:1;visibility:visible;transition:opacity 1s ease,visibility 1s ease}
     .envelope-intro[hidden]{display:none}
     .envelope-scene{width:min(100%,560px);display:flex;align-items:center;flex-direction:column;perspective:1400px;transform:translateY(-1vh)}
     .intro-heading{margin:0 0 32px;color:#526057;font:italic clamp(23px,5vw,31px) 'Cormorant Garamond',serif;letter-spacing:.035em;opacity:0;animation:introText .9s ease .4s forwards}
     .envelope{position:relative;width:min(82vw,440px);aspect-ratio:1.62;filter:drop-shadow(0 24px 25px rgba(45,49,47,.16));opacity:0;transform:translateY(24px) scale(.96);animation:envelopeArrival 1.15s cubic-bezier(.2,.75,.2,1) .08s forwards;transform-style:preserve-3d}
     .envelope-back{position:absolute;inset:0;border-radius:4px;background:linear-gradient(145deg,#fff 0%,#f7f7f5 100%);box-shadow:inset 0 0 0 1px rgba(130,132,128,.2),inset 0 2px 5px #fff;}
-    .letter-card{position:absolute;z-index:1;left:8%;top:7%;width:84%;height:87%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,#fff,#fbfbfa);border:1px solid #e9e9e5;box-shadow:0 6px 18px #4442;color:#33483e;text-align:center;transform:translateY(0) scale(.96);transition:transform 1.25s cubic-bezier(.2,.72,.2,1) .65s,z-index 0s .9s}
+    .letter-card{position:absolute;z-index:1;left:8%;top:7%;width:84%;height:87%;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(135deg,#fff,#fbfbfa);border:1px solid #e9e9e5;box-shadow:0 6px 18px #4442;color:#33483e;text-align:center;transform:translateY(0) scale(.96);transition:transform 1.25s cubic-bezier(.2,.72,.2,1) .65s,z-index 0s .65s}
     .letter-card:before{content:"";position:absolute;inset:8px;border:1px solid #e4dfd4}
     .letter-card .card-kicker{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:#a28a5e}
     .letter-card strong{margin:10px 0 5px;font:clamp(28px,8vw,40px) 'Marck Script',cursive;font-weight:400}
@@ -280,7 +288,7 @@
   <script>
     const envelopeIntro=document.getElementById('envelopeIntro'),envelopeSeal=document.getElementById('envelopeSeal');
     function finishEnvelope(){if(envelopeIntro.hidden)return;envelopeIntro.classList.add('is-closing');document.documentElement.classList.remove('envelope-pending');setTimeout(()=>{envelopeIntro.hidden=true;envelopeIntro.classList.remove('is-opening','is-closing');envelopeIntro.setAttribute('aria-hidden','true');const target=window.envelopeTargetHash;if(target){history.replaceState(null,'',location.pathname+location.search+target);const section=document.querySelector(target);if(section)section.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}else window.scrollTo(0,0)},1000)}
-    function openEnvelope(){if(envelopeIntro.classList.contains('is-opening'))return;envelopeIntro.classList.add('is-opening');setTimeout(finishEnvelope,matchMedia('(prefers-reduced-motion: reduce)').matches?150:3400)}
+    function openEnvelope(){if(envelopeIntro.classList.contains('is-opening'))return;envelopeIntro.classList.add('is-opening');setTimeout(finishEnvelope,matchMedia('(prefers-reduced-motion: reduce)').matches?150:2400)}
     window.rearmEnvelopeIntro=()=>{window.envelopeTargetHash=location.hash;history.replaceState(null,'',location.pathname+location.search);envelopeIntro.hidden=false;envelopeIntro.setAttribute('aria-hidden','false');envelopeIntro.classList.remove('is-opening','is-closing');document.documentElement.classList.add('envelope-pending');void envelopeIntro.offsetWidth};
     envelopeSeal.addEventListener('click',openEnvelope);
     const weddingSong=document.getElementById('weddingSong'),musicHint=document.getElementById('musicHint');
